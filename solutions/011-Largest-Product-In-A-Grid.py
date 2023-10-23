@@ -7,8 +7,7 @@ with open("011-Largest-Product-In-A-Grid-Input.txt", "r") as file:
 matrix =[]
 for line in lines:
     matrix.append([int(s) for s in line[:-1].split()])
-# print(matrix)
-# print(len(matrix), len(matrix[0]))
+
 ans = 1
 products = []
 for i in (range(len(matrix))):

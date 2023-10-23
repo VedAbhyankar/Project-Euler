@@ -1,19 +1,41 @@
-N = 600851475143
-n = N
+from helper import is_prime
+from tqdm import tqdm
+import time
 
-ans, p = 1, 2           # set ans to be 1 and p to be the smallest prime
-
-while n % p == 0:       # divide out 2 so we can iterate p by 2 instead of 1
-    n = n // p
-    ans = p
-
-p += 1
-while n > 1:
-
-    while n % p == 0:   # only enter loop of p is a prime by dividing out p
-        n = n // p      # divide out the prime factor p, 
-        ans = p         # set ans to be the current largest prime found
+while True:
     
-    p += 2
+    inp = input("\nEnter number/'q' to quit/'d' for PE solution: ")
+    if inp == 'q':
+        break
+    elif inp == 'd':
+        n = 600851475143
+    else:
+        n = int(inp)
 
-print(f"Largest prime factor of {N}: {ans}")
+    s = time.perf_counter()
+
+    ans = 1
+    if n % 2 == 0:
+        ans = 2
+
+    i = 1
+    p_low = p_high = 1
+
+    while i ** 2 <= n:
+
+        if n % i == 0:
+            temp = n // i
+            if is_prime(i):
+                p_low = i
+            if is_prime(temp):
+                ans = i
+                break
+        i += 2
+
+    ans = max(p_low, ans)
+
+    l = time.perf_counter() - s
+    print(f"Largest prime factor of {n}: {ans}, time: {l}")
+
+    if str(inp) == 'd':
+        break
